@@ -196,7 +196,7 @@ bool CActiveMasternodeManager::GetLocalAddress(CService& addrRet)
         // If we have some peers, let's try to find our local address from one of them
         g_connman->ForEachNodeContinueIf(CConnman::AllNodes, [&fFoundLocal, &empty](CNode* pnode) {
             empty = false;
-            if (pnode->addr.IsIPv4())
+            if (pnode->addr.IsIPv4() || pnode->addr.IsIPv6())
                 fFoundLocal = GetLocal(activeMasternodeInfo.service, &pnode->addr) && IsValidNetAddr(activeMasternodeInfo.service);
             return !fFoundLocal;
         });
